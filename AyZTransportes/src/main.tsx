@@ -1,14 +1,36 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Home from "./Home.tsx";
-import Navbar from "./Navbar/Navbar.jsx";
-import Footer from "./Footer/Footer.jsx";
+import Home from "./pages/Home/Home.tsx";
+import Tarifa from "./pages/Tarifa/Tarifa.tsx";
+
 import "./index.css";
 
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import FAQs from "./pages/FAQs/FAQs.tsx";
+import Layout from "./components/Layout/Layout.tsx";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "tarifa",
+        element: <Tarifa />,
+      },
+      {
+        path: "faqs",
+        element: <FAQs />,
+      },
+    ],
+  },
+]);
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Navbar />
-    <Home />
-    <Footer />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
