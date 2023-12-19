@@ -2,6 +2,7 @@ import React from "react";
 import autocomplete from "./utils/autocomplete";
 import { LocationData } from "./models/Adress";
 import MapComponent from "./components/MapComponent";
+import direction from "./utils/direction";
 function Tarifa() {
   const [opciones, setOpciones] = React.useState([]);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -11,6 +12,20 @@ function Tarifa() {
       setOpciones(response);
       console.log(typeof response, response);
     });
+    event.preventDefault();
+    return false;
+  };
+
+  const from = { longitude: -68.5251802, latitude: -31.5370909 };
+  const to = { longitude: -68.526631, latitude: -31.52764 };
+  const handleCalcular: React.MouseEventHandler<HTMLButtonElement> = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    let res = direction(from, to);
+    res.then((response) => {
+      console.log(response);
+    });
+
     event.preventDefault();
     return false;
   };
@@ -45,7 +60,9 @@ function Tarifa() {
           <button>Buscar destino</button>
         </form>
       </div>
-      <button>Calcular</button>
+      <button onClick={handleCalcular} type="button">
+        Calcular
+      </button>
       <MapComponent />
       <div>
         <h1>Resultados</h1>
