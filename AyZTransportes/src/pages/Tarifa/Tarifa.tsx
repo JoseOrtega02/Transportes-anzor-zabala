@@ -1,6 +1,7 @@
 import React from "react";
 import autocomplete from "./utils/autocomplete";
 import { LocationData } from "./models/Adress";
+import MapComponent from "./components/MapComponent";
 function Tarifa() {
   const [opciones, setOpciones] = React.useState([]);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -45,6 +46,7 @@ function Tarifa() {
         </form>
       </div>
       <button>Calcular</button>
+      <MapComponent />
       <div>
         <h1>Resultados</h1>
       </div>
