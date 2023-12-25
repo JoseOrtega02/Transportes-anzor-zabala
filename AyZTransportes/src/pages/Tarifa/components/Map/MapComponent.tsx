@@ -5,14 +5,14 @@ import "./map.css";
 
 export default function Map({ geojson }: any) {
   const mapContainer = useRef(null);
-  const map = useRef<maptilersdk.Map | null>(null);
+  const map = useRef<maptilersdk.Map | maplibregl.Map | null>(null);
   const city = { lng: -68.5251802, lat: -31.5370909 };
   const [zoom] = useState(14);
   maptilersdk.config.apiKey = import.meta.env.VITE_MAPTILER_KEY;
 
   useEffect(() => {
     if (map.current) return; // stops map from intializing more than once
-    console.log(geojson);
+
     // initialize map
     map.current = new maptilersdk.Map({
       container: mapContainer.current!,
@@ -23,6 +23,19 @@ export default function Map({ geojson }: any) {
 
     map.current.on("load", () => {
       if (geojson !== "") {
+        const routeCoordinates = [
+          geojson.coordinates[0],
+
+          geojson.coordinates[geojson.coordinates.length - 1],
+        ];
+
+        routeCoordinates.forEach((coord) => {
+          if (map.current) {
+            new maptilersdk.Marker({ color: "#FF0000" })
+              .setLngLat(coord)
+              .addTo(map.current);
+          }
+        });
         map.current?.addSource("route", {
           type: "geojson",
           data: {
