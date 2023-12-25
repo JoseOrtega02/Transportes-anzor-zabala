@@ -27,3 +27,9 @@ export interface LocationData {
   display_address: string;
   address: Address;
 }
+
+export interface Location {
+  longitude: number;
+  latitude: number;
+  name: string;
+}
