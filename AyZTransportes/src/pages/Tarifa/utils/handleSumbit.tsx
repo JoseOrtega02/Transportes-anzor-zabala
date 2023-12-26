@@ -24,13 +24,14 @@ export const handleCalcular = (
 ) => {
   let res = direction(from, to);
   //let costFecth = costFetch()
+  let fee = 0.5;
   res.then((response) => {
     console.log(response);
     setData({
       distance: response.routes[0].distance,
       duration: response.routes[0].duration,
       geojson: response.routes[0].geometry,
-      cost: response.routes[0].distance * 0.5 + "$",
+      cost: response.routes[0].distance * fee + "$",
     });
   });
 
