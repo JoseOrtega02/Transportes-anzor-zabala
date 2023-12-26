@@ -16,6 +16,7 @@ function Tarifa() {
     distance: 0,
     duration: 0,
     geojson: "",
+    cost: "",
   });
 
   return (
@@ -42,6 +43,7 @@ function Tarifa() {
             </p>
             <p>Tiempo:{Math.round(data.duration / 60)}min </p>
             <p>Distancia: {Math.round(data.distance / 1000)} km</p>
+            <p>Costo: {data.cost}</p>
           </>
         ) : (
           <p>Ingrese un origen y un destino</p>
