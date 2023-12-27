@@ -8,6 +8,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import FAQs from "./pages/FAQs/FAQs.tsx";
 import Layout from "./components/Layout/Layout.tsx";
+import UpdateTarifa from "./pages/UpdateTarifa/UpdateTarifa.tsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "faqs",
         element: <FAQs />,
+      },
+      {
+        path: "updateTarifa",
+        element: <UpdateTarifa />,
       },
     ],
   },

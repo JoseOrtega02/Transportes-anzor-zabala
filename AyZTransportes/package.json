@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@maptiler/sdk": "^1.2.0",
+    "firebase": "^10.7.1",
     "localforage": "^1.10.0",
     "maplibre-gl": "^3.6.2",
     "match-sorter": "^6.3.1",
