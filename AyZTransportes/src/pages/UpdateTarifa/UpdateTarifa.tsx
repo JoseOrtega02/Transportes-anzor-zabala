@@ -1,14 +1,13 @@
-import React, { useEffect, useContext } from "react";
-import { auth } from "../../firebase";
-import { AuthContext, AuthProvider } from "./Auth/AuthProvider";
-import Login from "./Auth/Login";
+import { AuthProvider } from "./Auth/AuthProvider";
+
 import TestComponent from "./TestComponent";
+import UpdateTarifaPage from "./UpdateTarifaPage";
 
 function UpdateTarifa() {
   return (
     <>
       <AuthProvider>
-        <Login />
+        <UpdateTarifaPage />
         <TestComponent />
       </AuthProvider>
     </>
