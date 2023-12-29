@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../../firebase";
-
+export const logOut = () => {
+  signOut(auth);
+};
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,10 +16,6 @@ const Login = () => {
       .catch((err) => {
         console.error(err);
       });
-  };
-
-  const logOut = () => {
-    signOut(auth);
   };
 
   const resetInput = () => {
