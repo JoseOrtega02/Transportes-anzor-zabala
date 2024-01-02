@@ -1,6 +1,5 @@
 import { AuthProvider } from "./Auth/AuthProvider";
 
-import TestComponent from "./TestComponent";
 import UpdateTarifaPage from "./UpdateTarifaPage";
 
 function UpdateTarifa() {
@@ -8,7 +7,6 @@ function UpdateTarifa() {
     <>
       <AuthProvider>
         <UpdateTarifaPage />
-        <TestComponent />
       </AuthProvider>
     </>
   );

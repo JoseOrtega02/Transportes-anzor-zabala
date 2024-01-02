@@ -2,6 +2,7 @@ import React from "react";
 import autocomplete from "./autocomplete";
 import direction from "./direction";
 import { Location } from "../models/Adress";
+import getPrices from "../../../utils/getPrice";
 
 export const handleSubmit = (
   event: React.FormEvent<HTMLFormElement>,
@@ -23,15 +24,19 @@ export const handleCalcular = (
   to: Location
 ) => {
   let res = direction(from, to);
-  //let costFecth = costFetch()
-  let fee = 0.5;
+  let costFecth: number;
+
   res.then((response) => {
-    console.log(response);
-    setData({
-      distance: response.routes[0].distance,
-      duration: response.routes[0].duration,
-      geojson: response.routes[0].geometry,
-      cost: response.routes[0].distance * fee + "$",
+    getPrices().then(async (data) => {
+      costFecth = data[0].price;
+      let cost = response.routes[0].distance * costFecth;
+
+      setData({
+        distance: response.routes[0].distance,
+        duration: response.routes[0].duration,
+        geojson: response.routes[0].geometry,
+        cost: cost + "$",
+      });
     });
   });
 

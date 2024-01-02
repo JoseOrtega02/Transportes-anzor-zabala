@@ -1,28 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import db from "../../firebase";
-import {
-  collection,
-  getDocs,
-  DocumentData,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { AuthContext } from "./Auth/AuthProvider";
 import Login, { logOut } from "./Auth/Login";
+import getPrices from "../../utils/getPrice";
 function UpdateTarifaPage() {
   const { currentUser } = useContext(AuthContext);
   const [price, setPrice] = React.useState(0);
   let priceId = "ckjtkQrohTnIMCeY8TYk";
-  const getPrices = async (): Promise<DocumentData[]> => {
-    const colletionRef = collection(db, "pricing");
-    const querySnapshot = await getDocs(colletionRef);
-    const price: DocumentData = [];
-    querySnapshot.forEach((doc) => {
-      price[doc.id] = doc.data();
-    });
-
-    return Object.values(price);
+  const handleGetPrices = async () => {
+    getPrices()
+      .then((data) => {
+        console.log(data);
+        setPrice(data[0].price);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+  useEffect(() => {
+    handleGetPrices();
+  }, [currentUser]);
+
   const updatePrice = async (priceId: string, newPriceData: any) => {
     const priceDocRef = doc(db, "pricing", priceId);
 
@@ -35,16 +34,6 @@ function UpdateTarifaPage() {
     }
   };
 
-  const handleGetPrices = () => {
-    getPrices()
-      .then((data) => {
-        console.log(data);
-        setPrice(data[0].price);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   const handleUpdatePrice = (priceId: string, newPriceData: any) => {
     updatePrice(priceId, newPriceData)
       .then(() => {
@@ -62,7 +51,6 @@ function UpdateTarifaPage() {
           <p>Precios: {price}</p>
           <input
             type="number"
-            value={price}
             onChange={(event) => setPrice(Number(event.target.value))}
           />
           <button
