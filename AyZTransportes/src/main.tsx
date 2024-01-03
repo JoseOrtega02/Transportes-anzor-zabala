@@ -1,35 +1,56 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Home from "./pages/Home/Home.tsx";
-import Tarifa from "./pages/Tarifa/Tarifa.tsx";
 
 import "./index.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import FAQs from "./pages/FAQs/FAQs.tsx";
-import Layout from "./components/Layout/Layout.tsx";
-import UpdateTarifa from "./pages/UpdateTarifa/UpdateTarifa.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+
+    async lazy() {
+      let { Layout: importedLayout } = await import(
+        "./components/Layout/Layout.tsx"
+      );
+      return { Component: importedLayout };
+    },
+
     children: [
       {
         index: true,
-        element: <Home />,
+
+        async lazy() {
+          let { Home: importedLayout } = await import("./pages/Home/Home.tsx");
+          return { Component: importedLayout };
+        },
       },
       {
         path: "tarifa",
-        element: <Tarifa />,
+        async lazy() {
+          let { Tarifa: importedLayout } = await import(
+            "./pages/Tarifa/Tarifa.tsx"
+          );
+          return { Component: importedLayout };
+        },
       },
       {
         path: "faqs",
-        element: <FAQs />,
+
+        async lazy() {
+          let { FAQs: importedLayout } = await import("./pages/FAQs/FAQs.tsx");
+          return { Component: importedLayout };
+        },
       },
       {
         path: "updateTarifa",
-        element: <UpdateTarifa />,
+
+        async lazy() {
+          let { UpdateTarifa: importedLayout } = await import(
+            "./pages/UpdateTarifa/UpdateTarifa.tsx"
+          );
+          return { Component: importedLayout };
+        },
       },
     ],
   },

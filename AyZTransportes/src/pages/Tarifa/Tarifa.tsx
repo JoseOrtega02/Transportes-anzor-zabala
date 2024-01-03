@@ -1,10 +1,14 @@
-import React from "react";
-import MapComponent from "./components/Map/MapComponent";
+import React, { Suspense } from "react";
+
 import InputFrom from "./components/Input/InputFrom";
 import InputTo from "./components/Input/InputTo";
 import { Location } from "./models/Adress";
 import { handleCalcular } from "./utils/handleSumbit";
-function Tarifa() {
+
+const MapComponentLazy = React.lazy(
+  () => import("./components/Map/MapComponent")
+);
+export function Tarifa() {
   const initialLocationValue: Location = {
     longitude: 0,
     latitude: 0,
@@ -33,7 +37,10 @@ function Tarifa() {
       >
         Calcular
       </button>
-      <MapComponent geojson={data.geojson} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <MapComponentLazy geojson={data.geojson} />
+      </Suspense>
+
       <div>
         <h1>Resultados</h1>
         {from.name !== "" && to.name !== "" ? (
