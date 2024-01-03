@@ -2,7 +2,7 @@ import { AuthProvider } from "./Auth/AuthProvider";
 
 import UpdateTarifaPage from "./UpdateTarifaPage";
 
-function UpdateTarifa() {
+export function UpdateTarifa() {
   return (
     <>
       <AuthProvider>
@@ -11,5 +11,3 @@ function UpdateTarifa() {
     </>
   );
 }
-
-export default UpdateTarifa;
