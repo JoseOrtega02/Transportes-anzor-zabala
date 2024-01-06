@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import * as maptilersdk from "@maptiler/sdk";
 import "@maptiler/sdk/dist/maptiler-sdk.css";
 import "./map.css";
@@ -7,13 +7,12 @@ export default function Map({ geojson }: any) {
   const mapContainer = useRef(null);
   const map = useRef<maptilersdk.Map | maplibregl.Map | null>(null);
   const city = { lng: -68.5251802, lat: -31.5370909 };
-  const [zoom] = useState(14);
-  maptilersdk.config.apiKey = import.meta.env.VITE_MAPTILER_KEY;
+  const zoom = 14;
 
-  useEffect(() => {
-    if (map.current) return; // stops map from intializing more than once
+  const initializeMap = () => {
+    if (map.current) return; // Evita la inicialización redundante
 
-    // initialize map
+    // Inicializa el mapa
     map.current = new maptilersdk.Map({
       container: mapContainer.current!,
       style: maptilersdk.MapStyle.STREETS,
@@ -21,55 +20,64 @@ export default function Map({ geojson }: any) {
       zoom: zoom,
     });
 
-    map.current.on("load", () => {
-      if (geojson !== "") {
-        const routeCoordinates = [
-          geojson.coordinates[0],
+    // Resto de la lógica de inicialización del mapa...
+  };
 
-          geojson.coordinates[geojson.coordinates.length - 1],
-        ];
+  useEffect(() => {
+    import("@maptiler/sdk").then((maptilersdk) => {
+      maptilersdk.config.apiKey = import.meta.env.VITE_MAPTILER_KEY;
+      initializeMap();
 
-        routeCoordinates.forEach((coord) => {
-          if (map.current) {
-            new maptilersdk.Marker({ color: "#FF0000" })
-              .setLngLat(coord)
-              .addTo(map.current);
-          }
-        });
-        map.current?.addSource("route", {
-          type: "geojson",
-          data: {
-            type: "Feature",
-            properties: {},
-            geometry: {
-              type: "LineString",
-              coordinates: geojson.coordinates,
+      map.current?.on("load", () => {
+        if (geojson !== "") {
+          const routeCoordinates = [
+            geojson.coordinates[0],
+
+            geojson.coordinates[geojson.coordinates.length - 1],
+          ];
+
+          routeCoordinates.forEach((coord) => {
+            if (map.current) {
+              new maptilersdk.Marker({ color: "#FF0000" })
+                .setLngLat(coord)
+                .addTo(map.current);
+            }
+          });
+          map.current?.addSource("route", {
+            type: "geojson",
+            data: {
+              type: "Feature",
+              properties: {},
+              geometry: {
+                type: "LineString",
+                coordinates: geojson.coordinates,
+              },
             },
-          },
-        });
-        map.current?.addLayer({
-          id: "route",
-          type: "line",
-          source: "route",
-          layout: {
-            "line-join": "round",
-            "line-cap": "round",
-          },
-          paint: {
-            "line-color": "#888", // Color of the route line
-            "line-width": 5, // Width of the route line
-          },
-        });
-      }
-    });
+          });
+          map.current?.addLayer({
+            id: "route",
+            type: "line",
+            source: "route",
+            layout: {
+              "line-join": "round",
+              "line-cap": "round",
+            },
+            paint: {
+              "line-color": "#888", // Color of the route line
+              "line-width": 5, // Width of the route line
+            },
+          });
+        }
+      });
 
-    return () => {
-      if (map.current) {
-        map.current.remove();
-        map.current = null;
-      }
-    };
-  }, [city.lng, city.lat, zoom, geojson]);
+      return () => {
+        if (map.current) {
+          map.current.remove();
+          map.current = null;
+        }
+      };
+    });
+  }, [geojson]);
 
   return (
     <div className="map-wrap">
