@@ -1,15 +1,20 @@
+import React, { Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
+const NavbarLazy = React.lazy(() => import("../Navbar/Navbar"));
+const FooterLazy = React.lazy(() => import("../Footer/Footer"));
 
 export function Layout() {
   return (
     <>
-      <Navbar />
+      <Suspense fallback={<div>Loading...</div>}>
+        <NavbarLazy />
+      </Suspense>
 
       <Outlet />
 
-      <Footer />
+      <Suspense fallback={<div>Loading...</div>}>
+        <FooterLazy />
+      </Suspense>
     </>
   );
 }
