@@ -1,32 +1,25 @@
 import { useRef, useEffect } from "react";
+import * as maptilersdk from "@maptiler/sdk";
 import "@maptiler/sdk/dist/maptiler-sdk.css";
 import "./map.css";
-import { Map, MapStyle } from "@maptiler/sdk";
 export default function MapComponent({ geojson }: any) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
-  const map = useRef<Map | null>(null);
+  const map = useRef<maptilersdk.Map | null>(null);
   const city = { lng: -68.5251802, lat: -31.5370909 };
   const zoom = 14;
-
-  const initializeMap = () => {
-    if (!map.current) {
-      map.current = new Map({
-        container: mapContainer.current!,
-        style: MapStyle.BASIC,
-        center: [city.lng, city.lat],
-        zoom: zoom,
-      });
-
-      // Rest of the map initialization logic...
-    }
-  };
-
+  console.log(maptilersdk.workerCount);
   useEffect(() => {
+    if (map.current) return; // stops map from intializing more than once
+
     const loadMap = async () => {
       try {
-        const maptilersdk = await import("@maptiler/sdk");
         maptilersdk.config.apiKey = import.meta.env.VITE_MAPTILER_KEY;
-        initializeMap();
+        map.current = new maptilersdk.Map({
+          container: mapContainer.current!,
+          style: maptilersdk.MapStyle.STREETS,
+          center: [city.lng, city.lat],
+          zoom: zoom,
+        });
 
         if (map.current && geojson !== "") {
           map.current?.on("load", () => {

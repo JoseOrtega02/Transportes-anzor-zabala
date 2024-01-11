@@ -1,12 +1,10 @@
-import React, { Suspense, useCallback } from "react";
+import React, { useCallback } from "react";
 import InputFrom from "./components/Input/InputFrom";
 import InputTo from "./components/Input/InputTo";
 import { Location } from "./models/Adress";
 import { handleCalcular } from "./utils/handleSumbit";
 
-const MapComponentLazy = React.lazy(
-  () => import("./components/Map/MapComponent")
-);
+import MapComponent from "./components/Map/leafletMap/Map";
 
 function Results({ from, to, data }: any) {
   return (
@@ -62,9 +60,10 @@ export function Tarifa() {
         Calcular
       </button>
 
-      <Suspense fallback={<div>Loading...</div>}>
+      {/* <Suspense fallback={<div>Loading...</div>}>
         <MapComponentLazy geojson={data.geojson} />
-      </Suspense>
+      </Suspense> */}
+      <MapComponent />
 
       <Results from={from} to={to} data={data} />
     </>
