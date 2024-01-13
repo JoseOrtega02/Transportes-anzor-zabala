@@ -63,7 +63,7 @@ export function Tarifa() {
       {/* <Suspense fallback={<div>Loading...</div>}>
         <MapComponentLazy geojson={data.geojson} />
       </Suspense> */}
-      <MapComponent />
+      <MapComponent geojson={data.geojson} />
 
       <Results from={from} to={to} data={data} />
     </>
