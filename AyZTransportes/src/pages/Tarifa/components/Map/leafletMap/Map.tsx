@@ -6,6 +6,7 @@ import { Marker } from "react-leaflet/Marker";
 import "./mapCSS.css";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
+import { Polyline } from "react-leaflet";
 
 function MapComponent({ geojson }: any) {
   const [routeCoordinates, setRouteCoordinates] = useState<any>(null);
@@ -14,11 +15,7 @@ function MapComponent({ geojson }: any) {
     if (!geojson) {
       return;
     } else {
-      setRouteCoordinates([
-        geojson.coordinates[0].reverse(),
-
-        geojson.coordinates[geojson.coordinates.length - 1].reverse(),
-      ]);
+      setRouteCoordinates([geojson.from, geojson.to, geojson.coordinates]);
     }
   }, [geojson]);
   const zoom = 20;
@@ -34,6 +31,7 @@ function MapComponent({ geojson }: any) {
           <>
             <Marker position={routeCoordinates[0]} draggable={false}></Marker>
             <Marker position={routeCoordinates[1]} draggable={false}></Marker>
+            <Polyline positions={routeCoordinates[2]} />
           </>
         )}
       </MapContainer>
