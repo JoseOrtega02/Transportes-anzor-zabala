@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { auth } from "../../../firebase";
-export const logOut = () => {
+import { getAuth } from "../../../firebase";
+export const logOut = async () => {
+  const auth = await getAuth();
   signOut(auth);
 };
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const login = () => {
+  const login = async () => {
+    const auth = await getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         resetInput();

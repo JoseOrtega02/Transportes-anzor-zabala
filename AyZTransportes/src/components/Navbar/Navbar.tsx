@@ -1,19 +1,18 @@
 import { NavLink } from "react-router-dom";
 
 export function Navbar() {
+  const links = [
+    { to: "/", text: "Home" },
+    { to: "/tarifa", text: "Tarifa" },
+    { to: "/faqs", text: "Preguntas Frecuentes" },
+  ];
   return (
     <div>
-      <NavLink to="/" className="nav-link">
-        Home
-      </NavLink>
-
-      <NavLink to="/tarifa" className="nav-link">
-        Tarifa
-      </NavLink>
-
-      <NavLink to="/faqs" className="nav-link">
-        Preguntas Frecuentes
-      </NavLink>
+      {links.map((link) => (
+        <NavLink to={link.to} className="nav-link">
+          {link.text}
+        </NavLink>
+      ))}
     </div>
   );
 }

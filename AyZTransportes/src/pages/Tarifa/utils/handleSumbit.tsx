@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useCallback } from "react";
 import autocomplete from "./autocomplete";
 import direction from "./direction";
-import { Location } from "../models/Adress";
+import { Location, LocationData } from "../models/Adress";
 import getPrices from "../../../utils/getPrice";
 import { functionAdapter } from "../adapter/adapterDataMap";
 
@@ -38,3 +38,21 @@ export const handleCalcular = (
   event.preventDefault();
   return false;
 };
+
+export const handleOptionClick = (
+  setTo: React.Dispatch<React.SetStateAction<Location>>,
+  setOpciones: React.Dispatch<React.SetStateAction<any>>,
+  setShowOptions: React.Dispatch<React.SetStateAction<boolean>>
+) =>
+  useCallback(
+    (opcion: LocationData) => {
+      setTo({
+        longitude: Number(opcion.lon),
+        latitude: Number(opcion.lat),
+        name: opcion.display_name,
+      });
+      setOpciones([]);
+      setShowOptions(false);
+    },
+    [setTo]
+  );

@@ -1,15 +1,14 @@
-import { DocumentData, collection, getDocs } from "firebase/firestore";
-import db from "../firebase";
+import { collection, getDocs, DocumentData } from "firebase/firestore";
+import { getFirestore } from "../firebase";
 
 const getPrices = async (): Promise<DocumentData[]> => {
-  const colletionRef = collection(db, "pricing");
-  const querySnapshot = await getDocs(colletionRef);
-  const price: DocumentData = [];
-  querySnapshot.forEach((doc) => {
-    price[doc.id] = doc.data();
-  });
-
-  return Object.values(price);
+  const db = await getFirestore();
+  const collectionRef = collection(db, "pricing");
+  const querySnapshot = await getDocs(collectionRef);
+  const documentSnapshots = querySnapshot.docs;
+  const documentDataPromises = documentSnapshots.map((doc) => doc.data());
+  const prices = await Promise.all(documentDataPromises);
+  return prices;
 };
 
 export default getPrices;

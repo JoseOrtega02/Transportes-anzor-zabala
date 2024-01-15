@@ -1,31 +1,30 @@
-import React, { useContext, useEffect } from "react";
-import db from "../../firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import { useContext, useEffect, useState } from "react";
+import { getFirestore, doc, updateDoc } from "firebase/firestore";
 import { AuthContext } from "./Auth/AuthProvider";
 import Login, { logOut } from "./Auth/Login";
 import getPrices from "../../utils/getPrice";
+
 function UpdateTarifaPage() {
   const { currentUser } = useContext(AuthContext);
-  const [price, setPrice] = React.useState(0);
-  let priceId = "ckjtkQrohTnIMCeY8TYk";
+  const [price, setPrice] = useState(0);
+  const priceId = "ckjtkQrohTnIMCeY8TYk";
   const handleGetPrices = async () => {
-    getPrices()
-      .then((data) => {
-        console.log(data);
-        setPrice(data[0].price);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    try {
+      const data = await getPrices();
+      console.log(data);
+      setPrice(data[0]?.price || 0);
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     handleGetPrices();
-  }, [currentUser]);
+  }, []);
 
   const updatePrice = async (priceId: string, newPriceData: any) => {
-    const priceDocRef = doc(db, "pricing", priceId);
-
     try {
+      const db = getFirestore();
+      const priceDocRef = doc(db, "pricing", priceId);
       await updateDoc(priceDocRef, newPriceData);
       console.log(`Price with ID ${priceId} updated successfully!`);
     } catch (error) {
@@ -34,15 +33,15 @@ function UpdateTarifaPage() {
     }
   };
 
-  const handleUpdatePrice = (priceId: string, newPriceData: any) => {
-    updatePrice(priceId, newPriceData)
-      .then(() => {
-        console.log("Price updated successfully!");
-      })
-      .catch((error) => {
-        console.error("Error updating price:", error);
-      });
+  const handleUpdatePrice = async (priceId: string, newPriceData: any) => {
+    try {
+      await updatePrice(priceId, newPriceData);
+      console.log("Price updated successfully!");
+    } catch (error) {
+      console.error("Error updating price:", error);
+    }
   };
+
   return (
     <>
       {currentUser ? (
@@ -53,14 +52,9 @@ function UpdateTarifaPage() {
             type="number"
             onChange={(event) => setPrice(Number(event.target.value))}
           />
-          <button
-            onClick={() => {
-              handleUpdatePrice(priceId, { price });
-            }}
-          >
+          <button onClick={() => handleUpdatePrice(priceId, { price })}>
             Actualizar precio
           </button>
-
           <button onClick={() => logOut()}>LogOut</button>
         </>
       ) : (

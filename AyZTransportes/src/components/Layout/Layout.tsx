@@ -8,11 +8,7 @@ export function Layout() {
     <>
       <Suspense fallback={<div>Loading...</div>}>
         <NavbarLazy />
-      </Suspense>
-
-      <Outlet />
-
-      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
         <FooterLazy />
       </Suspense>
     </>

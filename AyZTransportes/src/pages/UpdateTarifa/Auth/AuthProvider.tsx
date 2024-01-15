@@ -1,6 +1,6 @@
 import { onAuthStateChanged } from "firebase/auth";
 import React, { ReactNode, useEffect, useState } from "react";
-import { auth } from "../../../firebase";
+import { getAuth } from "../../../firebase";
 
 interface AuthContextType {
   currentUser: String | null;
@@ -18,15 +18,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user?.email || null);
-      setLoading(false);
-    });
+    const initializeAuth = async () => {
+      const auth = await getAuth();
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        setCurrentUser(user?.email || null);
+        setLoading(false);
+      });
 
-    // Clean up the listener when unmounting
-    return () => {
-      unsubscribe();
+      // Clean up the listener when unmounting
+      return () => {
+        unsubscribe();
+      };
     };
+
+    initializeAuth();
   }, []);
 
   useEffect(() => {
