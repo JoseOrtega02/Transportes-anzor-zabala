@@ -1,30 +1,52 @@
 import React, { useCallback } from "react";
-import InputFrom from "./components/Input/InputFrom";
-import InputTo from "./components/Input/InputTo";
+
 import { Location } from "./models/Adress";
 import { handleCalcular } from "./utils/handleSumbit";
 
 import MapComponent from "./components/Map/leafletMap/Map";
+import InputLocation from "./components/Input/InputLocation";
 
-function Results({ from, to, data }: any) {
+interface ResultsProps {
+  from: Location;
+  to: Location;
+  data: {
+    distance: number;
+    duration: number;
+    geojson: string;
+    cost: string;
+  };
+}
+
+const Results = ({ from, to, data }: ResultsProps) => {
+  const { name: fromName } = from;
+  const { name: toName } = to;
+  const { duration, distance, cost } = data;
+
+  let result;
+  if (fromName && toName) {
+    const roundedDuration = Math.round(duration / 60);
+    const roundedDistance = (distance / 1000).toFixed(2);
+    result = (
+      <>
+        <p>
+          Viaje: {fromName} - {toName}
+        </p>
+        <p>Tiempo: {roundedDuration} min</p>
+        <p>Distancia: {roundedDistance} km</p>
+        <p>Costo: {cost}</p>
+      </>
+    );
+  } else {
+    result = <p>Ingrese un origen y un destino</p>;
+  }
+
   return (
     <div>
       <h1>Resultados</h1>
-      {from.name !== "" && to.name !== "" ? (
-        <>
-          <p>
-            Viaje: {from.name} - {to.name}
-          </p>
-          <p>Tiempo:{Math.round(data.duration / 60)}min </p>
-          <p>Distancia: {Math.round(data.distance / 1000)} km</p>
-          <p>Costo: {data.cost}</p>
-        </>
-      ) : (
-        <p>Ingrese un origen y un destino</p>
-      )}
+      {result}
     </div>
   );
-}
+};
 
 export function Tarifa() {
   const initialLocationValue: Location = {
@@ -52,17 +74,22 @@ export function Tarifa() {
     <>
       <div>
         <h1>Calcula tu Tarifa</h1>
-        <InputFrom setFrom={setFrom} />
-        <InputTo setTo={setTo} />
+        <InputLocation
+          setLocation={setFrom}
+          label="Desde"
+          placeholder="Origen"
+        />
+        <InputLocation
+          setLocation={setTo}
+          label="Hasta"
+          placeholder="Destino"
+        />
       </div>
 
       <button onClick={handleCalculation} type="button">
         Calcular
       </button>
 
-      {/* <Suspense fallback={<div>Loading...</div>}>
-        <MapComponentLazy geojson={data.geojson} />
-      </Suspense> */}
       <MapComponent geojson={data.geojson} />
 
       <Results from={from} to={to} data={data} />

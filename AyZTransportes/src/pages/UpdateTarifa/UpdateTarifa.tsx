@@ -11,3 +11,5 @@ export function UpdateTarifa() {
     </>
   );
 }
+
+export default UpdateTarifa;

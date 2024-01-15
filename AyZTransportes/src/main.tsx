@@ -1,64 +1,48 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { createRoot } from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./index.css";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+const Layout = lazy(() => import("./components/Layout/Layout.tsx"));
+const Home = lazy(() => import("./pages/Home/Home.tsx"));
+const Tarifa = lazy(() => import("./pages/Tarifa/Tarifa.tsx"));
+const FAQs = lazy(() => import("./pages/FAQs/FAQs.tsx"));
+const UpdateTarifa = lazy(
+  () => import("./pages/UpdateTarifa/UpdateTarifa.tsx")
+);
 
 const router = createBrowserRouter([
   {
     path: "/",
-
-    async lazy() {
-      let { Layout: importedLayout } = await import(
-        "./components/Layout/Layout.tsx"
-      );
-      return { Component: importedLayout };
-    },
-
+    Component: Layout,
     children: [
       {
         index: true,
-
-        async lazy() {
-          let { Home: importedLayout } = await import("./pages/Home/Home.tsx");
-          return { Component: importedLayout };
-        },
+        Component: Home,
       },
       {
         path: "tarifa",
-        async lazy() {
-          let { Tarifa: importedLayout } = await import(
-            "./pages/Tarifa/Tarifa.tsx"
-          );
-          return { Component: importedLayout };
-        },
+        Component: Tarifa,
       },
       {
         path: "faqs",
-
-        async lazy() {
-          let { FAQs: importedLayout } = await import("./pages/FAQs/FAQs.tsx");
-          return { Component: importedLayout };
-        },
+        Component: FAQs,
       },
       {
         path: "updateTarifa",
-
-        async lazy() {
-          let { UpdateTarifa: importedLayout } = await import(
-            "./pages/UpdateTarifa/UpdateTarifa.tsx"
-          );
-          return { Component: importedLayout };
-        },
+        Component: UpdateTarifa,
       },
     ],
   },
 ]);
+
 const root = createRoot(document.getElementById("root")!);
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <RouterProvider router={router} />
+    </Suspense>
   </React.StrictMode>
 );

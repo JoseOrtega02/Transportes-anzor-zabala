@@ -1,24 +1,24 @@
-import { MapContainer } from "react-leaflet/MapContainer";
-import { TileLayer } from "react-leaflet/TileLayer";
+import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
 import { propiertyMap } from "./tileLayer";
-import { Marker } from "react-leaflet/Marker";
+import { useMemo } from "react";
 
 import "./mapCSS.css";
 import "leaflet/dist/leaflet.css";
-import { useEffect, useState } from "react";
-import { Polyline } from "react-leaflet";
 
-function MapComponent({ geojson }: any) {
-  const [routeCoordinates, setRouteCoordinates] = useState<any>(null);
+interface MapComponentProps {
+  geojson: any;
+}
 
-  useEffect(() => {
+function MapComponent({ geojson }: MapComponentProps) {
+  const zoom = 20;
+
+  const routeCoordinates = useMemo(() => {
     if (!geojson) {
-      return;
+      return null;
     } else {
-      setRouteCoordinates([geojson.from, geojson.to, geojson.coordinates]);
+      return [geojson.from, geojson.to, geojson.coordinates];
     }
   }, [geojson]);
-  const zoom = 20;
 
   return (
     <div>
@@ -29,8 +29,8 @@ function MapComponent({ geojson }: any) {
         />
         {routeCoordinates && (
           <>
-            <Marker position={routeCoordinates[0]} draggable={false}></Marker>
-            <Marker position={routeCoordinates[1]} draggable={false}></Marker>
+            <Marker position={routeCoordinates[0]} draggable={false} />
+            <Marker position={routeCoordinates[1]} draggable={false} />
             <Polyline positions={routeCoordinates[2]} />
           </>
         )}
