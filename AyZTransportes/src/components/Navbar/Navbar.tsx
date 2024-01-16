@@ -1,4 +1,6 @@
-import { NavLink } from "react-router-dom";
+import "./navbar.css";
+import logo from "../../assets/Logo.svg";
+import BotonNav from "./components/BotonNav";
 
 export function Navbar() {
   const links = [
@@ -7,13 +9,15 @@ export function Navbar() {
     { to: "/faqs", text: "Preguntas Frecuentes" },
   ];
   return (
-    <div>
-      {links.map((link) => (
-        <NavLink to={link.to} className="nav-link">
-          {link.text}
-        </NavLink>
-      ))}
-    </div>
+    <nav className="navbar">
+      <img
+        src={logo}
+        className="navbar__logo"
+        alt="Logo Anzor Zabala Transportes"
+      />
+
+      <BotonNav links={links} />
+    </nav>
   );
 }
 
