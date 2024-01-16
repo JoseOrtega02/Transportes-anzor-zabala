@@ -1,0 +1,77 @@
+.navbar{
+    display: flex;
+    padding: 5px 10px;
+justify-content: space-between;
+align-items: center;
+flex-shrink: 0;
+    background-color: #F5F5F5;
+    position: relative;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    border-bottom: 2px solid #333333;
+    border-radius:  0px 0px 18px 18px;
+    .navbar__logo{
+        width: 11rem;
+    }
+    .active{
+        display: flex !important;
+    }
+    .navbar__links{ 
+        display: flex;
+        gap: 20px;
+        position: absolute;
+        z-index: 999999;
+        top: 0;
+        left: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #F5F5F5;
+        width: 100vw;
+        height: 100vh;
+       
+        
+        z-index: 999;
+
+
+       
+        a.active {
+            color: #FFA500; /* Change the color to your desired color */
+            font-weight: bold; /* Optionally, you can apply other styles for the active link */
+          }
+          a{
+            text-decoration: none;
+            color: #333333;
+            font-weight: bold;
+          }
+        .navbar__button--close{
+            width: 2.3rem;
+            padding: 0%;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        .navbar__button--close>img{
+            width: 100%;
+        }
+    }
+    .navbar__button{
+        width: 2.3rem;
+        padding: 0%;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+    
+}
+
+
+@media screen  and (max-width: 768px) {
+    .navbar{
+        .navbar__links{
+            display: none;
+        }
+    }
+    
+}
