@@ -1,7 +1,7 @@
 import "./cardhome.css";
 interface Object {
   title: string;
-  description: string;
+  description?: string;
   image: string;
 }
 

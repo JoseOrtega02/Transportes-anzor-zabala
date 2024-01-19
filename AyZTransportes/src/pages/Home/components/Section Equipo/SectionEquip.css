@@ -9,12 +9,10 @@
     max-width: 18.625rem;
     margin-left: auto;
     margin-right: auto;
-    .card__container{
-        width: auto;
-    }
+    
     .section__title{
         background-color: #333333;
-        width: 95%;
+        width: -webkit-fill-available;
         line-height: normal;
         padding-top: 10px ;
         padding-bottom: 10px;
