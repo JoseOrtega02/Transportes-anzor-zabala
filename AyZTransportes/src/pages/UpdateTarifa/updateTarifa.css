@@ -1,0 +1,49 @@
+.updateTarifa__container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 0px 10px;
+   h1{
+       background-color: #333333;
+       color: #FFA500;
+       font-size: 2.5rem;
+       line-height: 2.5rem;
+   }
+   button{
+    text-decoration: none;
+        color: #333333;
+        background-color: #F5F5F5;
+        padding: 5px 10px;
+        border-radius: 10px;
+        font-size: 1.3rem;
+        text-align: center;
+        border: 1px solid #333333;
+        margin-bottom: 20px;
+        width: 80%
+   }
+   input{
+    width: 90%;
+    padding: 10px;
+    border: none;
+    font-size: 1rem;
+    border-radius: 5px 0px 0px 5px;
+    
+   }
+   p{
+    width: 90%;
+    padding: 10px;
+    background-color: #F5F5F5;
+    border: 1px solid #333333;
+    color: #333333;
+    text-align: center;
+    font-size: 1.5rem;
+    border-radius: 5px 0px 0px 5px;
+   }
+   .update{
+    background-color: #333333;
+    color: #F5F5F5;
+   }
+    
+}

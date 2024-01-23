@@ -3,7 +3,7 @@ import { getFirestore, doc, updateDoc } from "firebase/firestore";
 import { AuthContext } from "./Auth/AuthProvider";
 import Login, { logOut } from "./Auth/Login";
 import getPrices from "../../utils/getPrice";
-
+import "./updateTarifa.css";
 function UpdateTarifaPage() {
   const { currentUser } = useContext(AuthContext);
   const [price, setPrice] = useState(0);
@@ -45,18 +45,23 @@ function UpdateTarifaPage() {
   return (
     <>
       {currentUser ? (
-        <>
+        <div className="updateTarifa__container">
+          <h1>Actualizar Tarifa</h1>
           <button onClick={handleGetPrices}>obten los precios</button>
           <p>Precios: {price}</p>
           <input
             type="number"
+            placeholder="10$"
             onChange={(event) => setPrice(Number(event.target.value))}
           />
-          <button onClick={() => handleUpdatePrice(priceId, { price })}>
+          <button
+            className="update"
+            onClick={() => handleUpdatePrice(priceId, { price })}
+          >
             Actualizar precio
           </button>
           <button onClick={() => logOut()}>LogOut</button>
-        </>
+        </div>
       ) : (
         <Login />
       )}
