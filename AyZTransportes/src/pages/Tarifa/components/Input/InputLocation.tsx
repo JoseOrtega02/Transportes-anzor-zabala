@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from "react";
 import { LocationData, Location } from "../../models/Adress";
 import { handleSubmit } from "../../utils/handleSumbit";
-
+import "./inputLocation.css";
+import searchIcon from "../../../../assets/211817_search_strong_icon (1).svg";
+import close from "../../../../assets/X_icon.svg";
 interface InputLocationProps {
   setLocation: React.Dispatch<React.SetStateAction<Location>>;
   label: string;
@@ -45,20 +47,30 @@ function InputLocation({
   ));
 
   return (
-    <div>
+    <div className="input__location__container">
+      <label htmlFor="location">{label}</label>
       <form onSubmit={handleSearchSubmit} method="get">
-        <label htmlFor="location">{label}</label>
         <input
           type="text"
           name="location"
           id="texto"
           placeholder={placeholder}
         />
-        <button type="submit">Buscar {label}</button>
+
+        <button type="submit">
+          <img src={searchIcon} alt="search icon" />
+        </button>
       </form>
       {showOptions && (
-        <div>
-          <ul>{optionsList}</ul>
+        <div className="options__container">
+          <button>
+            <img
+              src={close}
+              alt="boton menu"
+              onClick={() => setShowOptions(false)}
+            />
+          </button>
+          <ul className="options__list">{optionsList}</ul>
         </div>
       )}
     </div>

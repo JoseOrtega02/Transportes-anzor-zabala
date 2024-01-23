@@ -6,6 +6,8 @@ import { handleCalcular } from "./utils/handleSumbit";
 import MapComponent from "./components/Map/leafletMap/Map";
 import InputLocation from "./components/Input/InputLocation";
 
+import "./tarifa.css";
+
 interface ResultsProps {
   from: Location;
   to: Location;
@@ -41,8 +43,8 @@ const Results = ({ from, to, data }: ResultsProps) => {
   }
 
   return (
-    <div>
-      <h1>Resultados</h1>
+    <div className="results__container">
+      <h1>Resultado de su tarifa:</h1>
       {result}
     </div>
   );
@@ -72,8 +74,12 @@ export function Tarifa() {
 
   return (
     <>
-      <div>
+      <div className="title__container">
         <h1>Calcula tu Tarifa</h1>
+        <p>Ingresa el inicio y hasta donde quieres realizar el transporte</p>
+      </div>
+      <MapComponent geojson={data.geojson} />
+      <div className="inputs__container">
         <InputLocation
           setLocation={setFrom}
           label="Desde"
@@ -84,13 +90,14 @@ export function Tarifa() {
           label="Hasta"
           placeholder="Destino"
         />
+        <button
+          onClick={handleCalculation}
+          type="button"
+          className="btn__submit"
+        >
+          Calcular Tarifa
+        </button>
       </div>
-
-      <button onClick={handleCalculation} type="button">
-        Calcular
-      </button>
-
-      <MapComponent geojson={data.geojson} />
 
       <Results from={from} to={to} data={data} />
     </>

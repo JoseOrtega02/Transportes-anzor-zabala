@@ -21,7 +21,7 @@ function MapComponent({ geojson }: MapComponentProps) {
   }, [geojson]);
 
   return (
-    <div>
+    <div className="map__container">
       <MapContainer center={[-31.5370909, -68.5251802]} zoom={zoom}>
         <TileLayer
           attribution={propiertyMap.attribution}
