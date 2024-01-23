@@ -1,0 +1,58 @@
+h1{
+    color: #FFA500;
+    background-color: #333333;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+    margin: 20px auto 20px auto;
+    width: 100%;
+    max-width: 18.625rem;
+    padding: 20px 0px;
+    border-radius: 10px;
+    text-align: center;
+    
+    
+}
+.inputBox{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 10px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    input{
+    width: 90%;
+    padding: 10px;
+    border: none;
+    font-size: 1rem;
+    border-radius: 5px 0px 0px 5px;
+    
+    }
+    .buttonBox{
+        display: flex;
+        gap: 10px;
+        width: 100%;
+        justify-content: center;
+        button{
+        text-decoration: none;
+        color: #333333;
+        background-color: #F5F5F5;
+        padding: 5px 10px;
+        border-radius: 10px;
+        font-size: 1.3rem;
+        text-align: center;
+        border: 1px solid #333333;
+        margin-bottom: 20px;
+        width: 80%
+    }
+    .logIn{
+        background-color: #333333;
+        color: #F5F5F5;
+    }
+    }
+   
+    
+}
+
