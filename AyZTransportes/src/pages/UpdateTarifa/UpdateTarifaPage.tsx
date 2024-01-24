@@ -1,17 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-import { getFirestore, doc, updateDoc } from "firebase/firestore";
+import { getFirestore, doc, updateDoc } from "firebase/firestore/lite";
 import { AuthContext } from "./Auth/AuthProvider";
 import Login, { logOut } from "./Auth/Login";
 import getPrices from "../../utils/getPrice";
 import "./updateTarifa.css";
+import reloadArrow from "../../assets/4213447_arrow_load_loading_refresh_reload_icon.svg";
 function UpdateTarifaPage() {
   const { currentUser } = useContext(AuthContext);
   const [price, setPrice] = useState(0);
-  const priceId = "ckjtkQrohTnIMCeY8TYk";
+  const priceId = import.meta.env.VITE_PRICE_ID || "";
   const handleGetPrices = async () => {
     try {
       const data = await getPrices();
-      console.log(data);
+
       setPrice(data[0]?.price || 0);
     } catch (error) {
       console.log(error);
@@ -47,8 +48,13 @@ function UpdateTarifaPage() {
       {currentUser ? (
         <div className="updateTarifa__container">
           <h1>Actualizar Tarifa</h1>
-          <button onClick={handleGetPrices}>obten los precios</button>
-          <p>Precios: {price}</p>
+          <div className="price__container">
+            <p>Precios: {price}</p>
+            <button onClick={handleGetPrices}>
+              <img src={reloadArrow} alt="" />
+            </button>
+          </div>
+
           <input
             type="number"
             placeholder="10$"
