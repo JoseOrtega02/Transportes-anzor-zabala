@@ -35,6 +35,7 @@ h1{
         gap: 10px;
         width: 100%;
         justify-content: center;
+        margin-top: 20px;
         button{
         text-decoration: none;
         color: #333333;
