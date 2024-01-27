@@ -9,6 +9,7 @@ const dataCardHero = {
   description:
     "La persona muestra una habilidad notable en comunicación efectiva, destacándose por su capacidad para transmitir ideas de manera clara y concisa.",
   image: CardIMGHero,
+  id: "card__container--1",
 };
 import CardIMG from "../../assets/driver_van_of_a_scholar_transp 1.png";
 
@@ -36,12 +37,15 @@ const dataFloat2 = {
 export function Home() {
   return (
     <main>
-      <div className="hero__text">
-        <h1>Transportes </h1>
-        <h2>Anzor Zabala</h2>
+      <div className="hero">
+        <div className="hero__text">
+          <div>
+            <h1>Transportes </h1>
+            <h2>Anzor Zabala</h2>
+          </div>
+        </div>
+        <img src={heroImg} alt="" className="hero__image" />
       </div>
-
-      <img src={heroImg} alt="" className="hero__image" />
 
       <HomeButtons />
       <CardHome props={dataCardHero} />
