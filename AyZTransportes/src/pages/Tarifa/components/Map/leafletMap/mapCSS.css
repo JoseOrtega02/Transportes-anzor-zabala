@@ -16,3 +16,30 @@
     z-index: 0;
     border-radius: 5px;
 }
+
+@media screen  and (min-width: 500px) {
+     .map__container{
+        width: 80%;
+     }
+     .leaflet-container{
+        height: 300px;
+        width: 100%;
+        z-index: 0;
+        border-radius: 5px;
+    }
+}
+
+
+@media screen  and (min-width: 1000px) {
+    .map__container{
+        width: 100%;
+        margin-top: 0px;
+     }
+     .leaflet-container{
+        height: 500px;
+        width: 100%;
+        z-index: 0;
+        border-radius: 5px;
+    }
+    
+}

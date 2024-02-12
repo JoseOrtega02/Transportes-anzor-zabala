@@ -81,3 +81,10 @@
 }
    }
 }
+
+
+@media screen  and (min-width: 1000px) {
+    .input__location__container{
+        width: 100%;
+    }
+}

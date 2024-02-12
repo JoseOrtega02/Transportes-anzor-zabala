@@ -73,34 +73,38 @@ export function Tarifa() {
   );
 
   return (
-    <>
+    <main>
       <div className="title__container">
         <h1>Calcula tu Tarifa</h1>
         <p>Ingresa el inicio y hasta donde quieres realizar el transporte</p>
       </div>
-      <MapComponent geojson={data.geojson} />
-      <div className="inputs__container">
-        <InputLocation
-          setLocation={setFrom}
-          label="Desde"
-          placeholder="Origen"
-        />
-        <InputLocation
-          setLocation={setTo}
-          label="Hasta"
-          placeholder="Destino"
-        />
-        <button
-          onClick={handleCalculation}
-          type="button"
-          className="btn__submit"
-        >
-          Calcular Tarifa
-        </button>
-      </div>
+      <div className="tarifa__container">
+        <MapComponent geojson={data.geojson} />
+        <div className="form__container">
+          <div className="inputs__container">
+            <InputLocation
+              setLocation={setFrom}
+              label="Desde"
+              placeholder="Origen"
+            />
+            <InputLocation
+              setLocation={setTo}
+              label="Hasta"
+              placeholder="Destino"
+            />
+            <button
+              onClick={handleCalculation}
+              type="button"
+              className="btn__submit"
+            >
+              Calcular Tarifa
+            </button>
+          </div>
 
-      <Results from={from} to={to} data={data} />
-    </>
+          <Results from={from} to={to} data={data} />
+        </div>
+      </div>
+    </main>
   );
 }
 
