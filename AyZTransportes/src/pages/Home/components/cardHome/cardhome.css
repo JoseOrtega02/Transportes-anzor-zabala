@@ -44,7 +44,7 @@
 }
 
 
-@media screen  and (min-width: 768px) {
+@media screen  and (min-width: 1000px) {
     #card__container--1{
         flex-direction: row;
         max-width: none;
