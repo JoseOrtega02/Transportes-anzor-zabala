@@ -42,7 +42,11 @@
 
     margin-top: 20px;
 }
-
+@media screen and (min-width: 500px) {
+        .card__container{
+            max-width: 35rem;
+        }
+}
 @media screen  and (min-width: 1000px) {
     #card__equipo--2{
         flex-direction: column;
@@ -93,7 +97,7 @@
     }
     .card__container{
         display: flex;
-        
+        flex-direction: row;
         align-items: center;
         justify-content: center;
        

@@ -58,14 +58,18 @@
         
     }
 
-
+    @media screen and (min-width: 500px) {
+        .section__equipo{
+            max-width: 35rem;
+        }
+}
     
 
 
     @media screen  and (min-width: 1000px) {
         .section__equipo{
             display: flex;
-            
+            max-width: none;
             align-items: center;
             justify-content: center;
             gap: 10px;

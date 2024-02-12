@@ -40,8 +40,27 @@ main{
 }
 }
 
+@media screen  and (min-width: 500px) {
+  main{
+    .hero__text{
+      max-width: 35rem;
+    }
+    .hero__image{
+      max-width: 35rem;
+    }
+  }
+  
+}
 
 @media screen  and (min-width: 1000px) {
+  main{
+    .hero__text{
+      max-width: none;
+    }
+    .hero__image{
+      max-width: none;
+    }
+  }
   main{
     .hero{
       display: flex;
