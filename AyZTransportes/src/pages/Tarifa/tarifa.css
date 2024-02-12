@@ -68,3 +68,56 @@ gap: 10px;
 border: 1px solid #333333;
 
 }
+
+
+@media screen and (min-width: 500px) {
+    .title__container{
+        max-width: 80%;
+    }
+    .form__container{
+        max-width: 80%;
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+        gap: 20px;
+        justify-content: space-between;
+        align-items: center;
+        width: 80%;
+    }
+   
+    
+}
+
+@media screen  and (min-width: 1000px) {
+    .title__container{
+        max-width: none;
+        width: 90%;
+    }
+
+    .tarifa__container{
+        display: flex;
+        flex-direction: row-reverse;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        gap:20px;   
+        margin-top: 10px;
+    }
+    .form__container{
+        flex-direction: column;
+        gap: 0px;
+        
+    }
+    .inputs__container{
+        max-width: none;
+        width: -webkit-fill-available;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    .results__container{
+        max-width: none;
+        width: -webkit-fill-available;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
