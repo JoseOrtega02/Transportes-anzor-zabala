@@ -10,7 +10,7 @@ function CardHome({ props }: { props: Object }) {
   return (
     <div className="card__container " id={props.id}>
       <img src={props.image} alt="Imagen" className="card__image" />
-      <div>
+      <div className="card__content">
         <h3 className="card__title">{props.title}</h3>
         {props.description ? (
           <p className="card__description">{props.description}</p>

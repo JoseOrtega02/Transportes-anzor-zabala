@@ -11,21 +11,24 @@ function SectionEquip({
   description,
   data1,
   data2,
+  id,
 }: {
   title: string;
   description: string;
   data1: Object;
   data2: Object;
+  id?: string;
 }) {
   return (
-    <section className="section__equipo">
+    <section className="section__equipo" id={id}>
       <div className="section__title">
         <h2>{title}</h2>
         <p>{description}</p>
       </div>
-
-      <CardHome props={data1} />
-      <CardHome props={data2} />
+      <div className="section__cards">
+        <CardHome props={data1} />
+        <CardHome props={data2} />
+      </div>
     </section>
   );
 }

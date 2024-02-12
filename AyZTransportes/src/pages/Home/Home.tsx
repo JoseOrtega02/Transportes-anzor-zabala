@@ -29,10 +29,12 @@ import CardIMGFloat from "../../assets/driver_van_of_a_scholar_transp_float.jpg"
 const dataFloat = {
   title: "mecedez benz van",
   image: CardIMGFloat,
+  id: "card__equipo--2",
 };
 const dataFloat2 = {
   title: "mecedez benz van",
   image: CardIMGFloat,
+  id: "card__equipo--2",
 };
 export function Home() {
   return (
@@ -60,6 +62,7 @@ export function Home() {
         description="lorem ipsum dolor sit amet "
         data1={dataFloat}
         data2={dataFloat2}
+        id="section__equipo--2"
       />
     </main>
   );
