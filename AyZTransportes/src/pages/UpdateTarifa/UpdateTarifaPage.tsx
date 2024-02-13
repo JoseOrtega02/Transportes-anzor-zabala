@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { getFirestore, doc, updateDoc } from "firebase/firestore/lite";
 import { AuthContext } from "./Auth/AuthProvider";
-import Login, { logOut } from "./Auth/Login";
+import { logOut } from "./Auth/Login";
 import getPrices from "../../utils/getPrice";
 import "./updateTarifa.css";
 import reloadArrow from "../../assets/4213447_arrow_load_loading_refresh_reload_icon.svg";
+import { useNavigate } from "react-router-dom";
 function UpdateTarifaPage() {
+  const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
   const [price, setPrice] = useState(0);
   const priceId = import.meta.env.VITE_PRICE_ID || "";
@@ -18,7 +20,14 @@ function UpdateTarifaPage() {
       console.log(error);
     }
   };
+  const redirectUser = () => {
+    if (!currentUser) {
+      console.log(currentUser);
+      navigate("/login");
+    }
+  };
   useEffect(() => {
+    redirectUser();
     handleGetPrices();
   }, []);
 
@@ -45,32 +54,35 @@ function UpdateTarifaPage() {
 
   return (
     <>
-      {currentUser ? (
-        <div className="updateTarifa__container">
-          <h1>Actualizar Tarifa</h1>
-          <div className="price__container">
-            <p>Precios: {price}</p>
-            <button onClick={handleGetPrices}>
-              <img src={reloadArrow} alt="" />
-            </button>
-          </div>
-
-          <input
-            type="number"
-            placeholder="10$"
-            onChange={(event) => setPrice(Number(event.target.value))}
-          />
-          <button
-            className="update"
-            onClick={() => handleUpdatePrice(priceId, { price })}
-          >
-            Actualizar precio
+      <div className="updateTarifa__container">
+        <h1>Actualizar Tarifa</h1>
+        <div className="price__container">
+          <p>Precios: {price}</p>
+          <button onClick={handleGetPrices}>
+            <img src={reloadArrow} alt="" />
           </button>
-          <button onClick={() => logOut()}>LogOut</button>
         </div>
-      ) : (
-        <Login />
-      )}
+
+        <input
+          type="number"
+          placeholder="10$"
+          onChange={(event) => setPrice(Number(event.target.value))}
+        />
+        <button
+          className="update"
+          onClick={() => handleUpdatePrice(priceId, { price })}
+        >
+          Actualizar precio
+        </button>
+        <button
+          onClick={() => {
+            logOut();
+            navigate("/");
+          }}
+        >
+          LogOut
+        </button>
+      </div>
     </>
   );
 }

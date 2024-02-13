@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { getAuth } from "../../../firebase";
 import "./login.css";
+import { useNavigate } from "react-router-dom";
 export const logOut = async () => {
   const auth = await getAuth();
   signOut(auth);
@@ -9,11 +10,12 @@ export const logOut = async () => {
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const login = async () => {
     const auth = await getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
+        navigate("/updateTarifa");
         resetInput();
       })
       .catch((err) => {

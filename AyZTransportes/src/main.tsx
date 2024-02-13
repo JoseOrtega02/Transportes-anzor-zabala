@@ -11,6 +11,7 @@ const FAQs = lazy(() => import("./pages/FAQs/FAQs.tsx"));
 const UpdateTarifa = lazy(
   () => import("./pages/UpdateTarifa/UpdateTarifa.tsx")
 );
+const Login = lazy(() => import("./pages/Login/Login.tsx"));
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "updateTarifa",
         Component: UpdateTarifa,
+      },
+      {
+        path: "login",
+        Component: Login,
       },
     ],
   },
