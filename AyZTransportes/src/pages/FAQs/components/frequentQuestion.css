@@ -11,8 +11,8 @@
     .frequent__question__line{
         width: 90%;
         max-width: 18.625rem;
-        height: 1px;
-        background-color: #333333;
+       
+        background-color: #3333332c;
     }
    .frequent__question__header{
     width: 90%;
@@ -55,3 +55,50 @@
         display: block;
     }
 }
+
+@media screen and (min-width: 500px) {
+    .frequent__question{
+        max-width: 38rem;
+        .frequent__question__line{
+            max-width: none;
+            width: 100%;
+        }
+        .frequent__question__header{
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            max-width: none;
+            width: 100%;
+            .frequent__question__button{
+                width: 3rem;
+                height: 3rem;
+                img{
+                    width: 100%;
+                }
+            }
+        }
+        
+    }
+    
+}
+
+@media screen  and (min-width: 1000px) {
+    .frequent__question{
+        max-width: none;
+        .frequent__question__line{
+            max-width: none;
+            width: 100%;
+        }
+        .frequent__question__header{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 20px;
+            max-width: none;
+            width: 100%;
+            .frequent__question__button{
+                width: 3rem;
+                height: 3rem;
+                img{
+                    width: 100%;
+                }}}}}
