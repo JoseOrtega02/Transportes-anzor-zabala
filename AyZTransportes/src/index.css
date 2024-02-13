@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Expletus+Sans:ital,wght@0,400..700;1,400..700&family=Laila:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Expletus+Sans:ital,wght@0,400..700;1,400..700&family=Laila:wght@400;600&family=Proza+Libre:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
 html{
   padding: 0;
   margin: 0;
@@ -7,9 +9,12 @@ body{
   padding: 0;
   margin: 0;
   background-color: #F4F2EC;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+  font-family: 'Proza Libre', sans-serif;
+  h1,h2,h3{
+   
+    font-family: 'Expletus Sans', cursive;
+  }
+  }
 
 
 

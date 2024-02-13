@@ -30,6 +30,7 @@ export function FAQs() {
   return (
     <div className="faqs__container">
       <h1>Preguntas Frecuentes</h1>
+
       <div className="frequent__question__container">
         <FrequentQuestion data={data} />
       </div>

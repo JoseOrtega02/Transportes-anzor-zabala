@@ -45,7 +45,8 @@ const FrequentQuestion: React.FC<FrequentQuestionProps> = ({ data }) => {
               <img src={arrow} alt="" />
             </button>
           </div>
-          <div className="frequent__question__line"></div>
+
+          <hr className="frequent__question__line"></hr>
           <p>{activeIndex === index ? item.description : ""}</p>
         </div>
       ))}
