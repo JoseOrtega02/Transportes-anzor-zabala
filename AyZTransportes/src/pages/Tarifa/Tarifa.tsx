@@ -7,6 +7,7 @@ import MapComponent from "./components/Map/leafletMap/Map";
 import InputLocation from "./components/Input/InputLocation";
 
 import "./tarifa.css";
+import Loader from "../../components/Loader/Loader";
 
 interface ResultsProps {
   from: Location;
@@ -57,6 +58,8 @@ export function Tarifa() {
     name: "",
   };
 
+  const [loading, setLoading] = React.useState(false);
+
   const [from, setFrom] = React.useState<Location>(initialLocationValue);
   const [to, setTo] = React.useState<Location>(initialLocationValue);
   const [data, setData] = React.useState({
@@ -68,7 +71,7 @@ export function Tarifa() {
 
   const handleCalculation = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) =>
-      handleCalcular(event, setData, from, to),
+      handleCalcular(event, setData, from, to, setLoading),
     [from, to]
   );
 
@@ -93,11 +96,15 @@ export function Tarifa() {
               placeholder="Destino"
             />
             <button
-              onClick={handleCalculation}
+              onClick={(event) => {
+                handleCalculation(event);
+                setLoading(true);
+              }}
               type="button"
               className="btn__submit"
             >
               Calcular Tarifa
+              {loading && <Loader className="btn__loader" />}
             </button>
           </div>
 

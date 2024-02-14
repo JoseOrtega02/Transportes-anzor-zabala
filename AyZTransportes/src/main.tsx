@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./index.css";
+import Loader from "./components/Loader/Loader.tsx";
 
 const Layout = lazy(() => import("./components/Layout/Layout.tsx"));
 const Home = lazy(() => import("./pages/Home/Home.tsx"));
@@ -46,7 +47,7 @@ const root = createRoot(document.getElementById("root")!);
 
 root.render(
   <React.StrictMode>
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader />}>
       <RouterProvider router={router} />
     </Suspense>
   </React.StrictMode>
