@@ -6,11 +6,14 @@ import getPrices from "../../utils/getPrice";
 import "./updateTarifa.css";
 import reloadArrow from "../../assets/4213447_arrow_load_loading_refresh_reload_icon.svg";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../components/Loader/Loader";
 function UpdateTarifaPage() {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
+
+  const [loader, setLoader] = useState(false);
   const [price, setPrice] = useState(0);
-  const priceId = import.meta.env.VITE_PRICE_ID || "";
+  const priceId = import.meta.env.VITE_PRICE_ID_KEY || "";
   const handleGetPrices = async () => {
     try {
       const data = await getPrices();
@@ -33,6 +36,7 @@ function UpdateTarifaPage() {
 
   const updatePrice = async (priceId: string, newPriceData: any) => {
     try {
+      console.log(`Updating price with ID: ${priceId}`);
       const db = getFirestore();
       const priceDocRef = doc(db, "pricing", priceId);
       await updateDoc(priceDocRef, newPriceData);
@@ -43,12 +47,18 @@ function UpdateTarifaPage() {
     }
   };
 
-  const handleUpdatePrice = async (priceId: string, newPriceData: any) => {
+  const handleUpdatePrice = async (
+    priceId: string,
+    newPriceData: any,
+    setLoader: any
+  ) => {
     try {
       await updatePrice(priceId, newPriceData);
+      setLoader(false);
       console.log("Price updated successfully!");
     } catch (error) {
       console.error("Error updating price:", error);
+      setLoader(false);
     }
   };
 
@@ -70,9 +80,13 @@ function UpdateTarifaPage() {
         />
         <button
           className="update"
-          onClick={() => handleUpdatePrice(priceId, { price })}
+          onClick={() => {
+            handleUpdatePrice(priceId, { price }, setLoader);
+            setLoader(true);
+          }}
         >
           Actualizar precio
+          {loader && <Loader className="btn__loader" />}
         </button>
         <button
           onClick={() => {

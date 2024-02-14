@@ -22,7 +22,8 @@ export const handleCalcular = (
   event: React.MouseEvent<HTMLButtonElement>,
   setData: React.Dispatch<React.SetStateAction<any>>,
   from: Location,
-  to: Location
+  to: Location,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   let res = direction(from, to);
   let costFecth: number;
@@ -32,6 +33,7 @@ export const handleCalcular = (
       costFecth = data[0].price;
 
       setData(functionAdapter(response, costFecth));
+      setLoading(false);
     });
   });
 
