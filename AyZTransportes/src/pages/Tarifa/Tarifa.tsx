@@ -40,7 +40,7 @@ const Results = ({ from, to, data }: ResultsProps) => {
       </>
     );
   } else {
-    result = <p>Ingrese un origen y un destino</p>;
+    result = <p></p>;
   }
 
   return (
@@ -95,8 +95,19 @@ export function Tarifa() {
               label="Hasta"
               placeholder="Destino"
             />
+            {from.name === "" || to.name === "" ? (
+              <p className="input__error"> Ingrese un origen y un destino</p>
+            ) : (
+              <></>
+            )}
+
             <button
               onClick={(event) => {
+                if (from.name === "" || to.name === "") {
+                  setLoading(false);
+
+                  return false;
+                }
                 handleCalculation(event);
                 setLoading(true);
               }}

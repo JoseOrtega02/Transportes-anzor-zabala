@@ -30,6 +30,9 @@
             width: 1.5rem;
         }
     }
+    button:hover{
+        cursor: pointer;
+    }
    }
    .options__container{
     position: fixed;

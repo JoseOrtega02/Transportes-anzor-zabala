@@ -31,9 +31,15 @@ export const handleCalcular = (
   res.then((response) => {
     getPrices().then(async (data) => {
       costFecth = data[0].price;
+      if (from.name === "" || to.name === "") {
+        setLoading(false);
 
-      setData(functionAdapter(response, costFecth));
-      setLoading(false);
+        return false;
+      } else {
+        console.log(from);
+        setData(functionAdapter(response, costFecth));
+        setLoading(false);
+      }
     });
   });
 
