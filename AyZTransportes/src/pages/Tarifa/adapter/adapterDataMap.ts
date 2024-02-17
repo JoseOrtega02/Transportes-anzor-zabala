@@ -1,5 +1,6 @@
 export const functionAdapter = (data: any, costFecth: number) => {
-  const cost = data.routes[0].distance * costFecth;
+  const roundedDistance = (data.routes[0].distance / 1000).toFixed(2);
+  const cost = parseFloat(roundedDistance) * costFecth * 21;
   let coordinates = data.routes[0].geometry.coordinates.map((coord: any) =>
     coord.reverse()
   );
@@ -13,7 +14,7 @@ export const functionAdapter = (data: any, costFecth: number) => {
 
   let dataRes = {
     distance: data.routes[0].distance,
-    duration: data.routes[0].duration,
+
     geojson: geojson,
     cost: cost,
   };
