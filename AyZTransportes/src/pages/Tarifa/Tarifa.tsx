@@ -16,27 +16,33 @@ interface ResultsProps {
     distance: number;
     duration: number;
     geojson: string;
-    cost: string;
+    cost: number;
   };
 }
 
 const Results = ({ from, to, data }: ResultsProps) => {
   const { name: fromName } = from;
   const { name: toName } = to;
-  const { duration, distance, cost } = data;
+  const { distance, cost } = data;
 
   let result;
   if (fromName && toName) {
-    const roundedDuration = Math.round(duration / 60);
     const roundedDistance = (distance / 1000).toFixed(2);
     result = (
       <>
         <p>
-          Viaje: {fromName} - {toName}
+          Viaje:
+          <br />
+          Desde :{fromName}
+          <br />
+          Hasta :{toName}
         </p>
-        <p>Tiempo: {roundedDuration} min</p>
+
         <p>Distancia: {roundedDistance} km</p>
-        <p>Costo: {cost}</p>
+        <p>Costo viaje de solo llevar: {cost.toLocaleString("en-US")} $</p>
+        <p>
+          Costo de viaje llevar y traer: {(cost * 2).toLocaleString("en-US")} $
+        </p>
       </>
     );
   } else {
@@ -66,7 +72,7 @@ export function Tarifa() {
     distance: 0,
     duration: 0,
     geojson: "",
-    cost: "",
+    cost: 0,
   });
 
   const handleCalculation = useCallback(
