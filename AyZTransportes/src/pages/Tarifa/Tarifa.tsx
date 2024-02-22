@@ -59,8 +59,8 @@ const Results = ({ from, to, data }: ResultsProps) => {
 
 export function Tarifa() {
   const initialLocationValue: Location = {
-    longitude: 0,
-    latitude: 0,
+    longitude: -31.5370909,
+    latitude: -68.5251802,
     name: "",
   };
 
@@ -88,18 +88,26 @@ export function Tarifa() {
         <p>Ingresa el inicio y hasta donde quieres realizar el transporte</p>
       </div>
       <div className="tarifa__container">
-        <MapComponent geojson={data.geojson} />
+        <MapComponent
+          geojson={data.geojson}
+          setFrom={setFrom}
+          from={from}
+          setTo={setTo}
+          to={to}
+        />
         <div className="form__container">
           <div className="inputs__container">
             <InputLocation
               setLocation={setFrom}
               label="Desde"
               placeholder="Origen"
+              value={from.name}
             />
             <InputLocation
               setLocation={setTo}
               label="Hasta"
               placeholder="Destino"
+              value={to.name}
             />
             {from.name === "" || to.name === "" ? (
               <p className="input__error"> Ingrese un origen y un destino</p>

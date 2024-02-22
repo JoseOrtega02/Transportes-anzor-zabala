@@ -36,7 +36,6 @@ export const handleCalcular = (
 
         return false;
       } else {
-        console.log(from);
         setData(functionAdapter(response, costFecth));
         setLoading(false);
       }

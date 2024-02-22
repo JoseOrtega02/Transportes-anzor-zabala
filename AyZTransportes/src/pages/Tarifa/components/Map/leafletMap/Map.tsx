@@ -1,15 +1,31 @@
-import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
+import { MapContainer, TileLayer, Polyline } from "react-leaflet";
 import { propiertyMap } from "./tileLayer";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 
 import "./mapCSS.css";
 import "leaflet/dist/leaflet.css";
+import MapDraggable from "./MapDraggable";
+import { Location } from "../../../models/Adress";
 
 interface MapComponentProps {
   geojson: any;
+
+  setFrom: React.Dispatch<React.SetStateAction<Location>>;
+
+  setTo: React.Dispatch<React.SetStateAction<Location>>;
+
+  to: Location;
+
+  from: Location;
 }
 
-function MapComponent({ geojson }: MapComponentProps) {
+function MapComponent({
+  setFrom,
+  geojson,
+  from,
+  setTo,
+  to,
+}: MapComponentProps) {
   const zoom = 20;
 
   const routeCoordinates = useMemo(() => {
@@ -27,10 +43,12 @@ function MapComponent({ geojson }: MapComponentProps) {
           attribution={propiertyMap.attribution}
           url={propiertyMap.url}
         />
+        <MapDraggable setFrom={setFrom} from={from} />
+        <MapDraggable setFrom={setTo} from={to} />
         {routeCoordinates && (
           <>
-            <Marker position={routeCoordinates[0]} draggable={false} />
-            <Marker position={routeCoordinates[1]} draggable={false} />
+            {/* <Marker position={routeCoordinates[0]} draggable={false} />
+            <Marker position={routeCoordinates[1]} draggable={false} /> */}
             <Polyline positions={routeCoordinates[2]} />
           </>
         )}
