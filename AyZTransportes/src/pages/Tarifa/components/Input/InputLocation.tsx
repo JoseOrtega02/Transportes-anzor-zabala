@@ -8,16 +8,18 @@ interface InputLocationProps {
   setLocation: React.Dispatch<React.SetStateAction<Location>>;
   label: string;
   placeholder: string;
+  value?: string;
 }
 
 function InputLocation({
   setLocation,
   label,
   placeholder,
+  value,
 }: InputLocationProps) {
   const [opciones, setOpciones] = useState<LocationData[]>([]);
   const [showOptions, setShowOptions] = useState(false);
-
+  const [inputValue, setInputValue] = useState(value);
   const handleOptionClick = useCallback(
     (opcion: LocationData) => {
       setLocation({
@@ -46,6 +48,11 @@ function InputLocation({
     </li>
   ));
 
+  const handlerValue = function (e: any) {
+    e.preventDefault();
+    setInputValue(e.target.value);
+    return e.target.value;
+  };
   return (
     <div className="input__location__container">
       <label htmlFor="location">{label}</label>
@@ -55,6 +62,8 @@ function InputLocation({
           name="location"
           id="texto"
           placeholder={placeholder}
+          value={value ? value : inputValue}
+          onChange={handlerValue}
         />
 
         <button type="submit">
